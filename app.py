@@ -4,15 +4,17 @@ from flask import Flask, request
 import json
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
+from flask_cors import CORS
 
 model = None
 app = Flask(__name__)
+CORS(app)
 
 
 def load_model():
     global model
     # model variable refers to the global variable
-    with open('rs_random_forest_model_1.pkl', 'rb') as f:
+    with open('random_forest1.pkl', 'rb') as f:
         model = pickle.load(f)
 
 
@@ -34,4 +36,4 @@ def get_prediction():
 
 if __name__ == '__main__':
     load_model()  # load model at the beginning once only
-    app.run(host='0.0.0.0', port=85)
+    app.run(host='0.0.0.0', port=8080, debug=True)
